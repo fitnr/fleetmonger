@@ -1,5 +1,6 @@
 from .utils import setup_dt
-from .port import Port
+from .port import port_wrapper, Port
+
 
 class vessel(object):
 
@@ -28,6 +29,16 @@ class vessel(object):
         self.positionreceived = setup_dt(kwargs['positionreceived'])
         self.publicurl = kwargs['publicurl']
         self.type = kwargs['type']
-        self.lastport = Port(kwargs['lastport'])
 
-        
+        if kwargs.get('last_ports'):
+            self.last_ports = port_wrapper(kwargs['last_ports'])
+
+        if kwargs.get('lastport'):
+            self.last_port = Port(kwargs['lastport'])
+
+    @property
+    def coords(self):
+        return (self.latitude, self.longitude)
+
+    def __repr__(self):
+        return '<' + self.name + '>'
