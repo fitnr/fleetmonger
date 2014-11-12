@@ -6,35 +6,42 @@ class vessel(object):
 
     """docstring for vessel"""
 
+    # 'name'
+    # 'destination'
+    # 'etatime'
+    # 'flag'
+    # 'heading'
+    # 'imonumber'
+    # 'latitude'
+    # 'location'
+    # 'longitude'
+    # 'mmsinumber'
+    # 'navigationstatus'
+    # 'photos'
+    # 'positionreceived'
+    # 'publicurl'
+    # 'type'
+    # 'last_ports'
+    # 'last_port'
+
     def __init__(self, kwargs):
 
         if kwargs.get('vessel'):
             kwargs = kwargs['vessel']
 
-        self.name = kwargs['name']
-        self.destination = kwargs['destination']
-        self.etatime = setup_dt(kwargs['etatime'])
-        self.flag = kwargs['flag']
-        self.heading = kwargs['heading']
-        self.imonumber = kwargs['imonumber']
+        for k, v in kwargs.items():
 
-        self.latitude = kwargs['latitude']
-        self.location = kwargs['location']
-        self.longitude = kwargs['longitude']
+            if k in ['positionreceived', 'etatime']:
+                setattr(self, k, setup_dt(v))
 
-        self.mmsinumber = kwargs['mmsinumber']
+            elif k == 'last_ports':
+                self.last_ports = port_wrapper(v)
 
-        self.navigationstatus = kwargs['navigationstatus']
-        self.photos = kwargs['photos']
-        self.positionreceived = setup_dt(kwargs['positionreceived'])
-        self.publicurl = kwargs['publicurl']
-        self.type = kwargs['type']
+            elif k == 'lastport':
+                self.last_port = Port(v)
 
-        if kwargs.get('last_ports'):
-            self.last_ports = port_wrapper(kwargs['last_ports'])
-
-        if kwargs.get('lastport'):
-            self.last_port = Port(kwargs['lastport'])
+            else:
+                setattr(self, k, v)
 
     @property
     def coords(self):
@@ -42,3 +49,7 @@ class vessel(object):
 
     def __repr__(self):
         return '<' + self.name + '>'
+
+
+
+
