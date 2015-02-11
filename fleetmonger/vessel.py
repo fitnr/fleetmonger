@@ -12,13 +12,13 @@ class vessel_wrapper(list):
         vessels = kwargs['objects']
 
         for v in vessels:
-            self.append(Vessel(v['vessel']))
+            self.append(Vessel(v))
 
 class Vessel(object):
 
     """A single vessel"""
 
-    name = None
+    name = 'Vessel'
     destination = None
     etatime = None
     flag = None
@@ -40,11 +40,8 @@ class Vessel(object):
 
         if kwargs.get('vessel'):
             kwargs = kwargs['vessel']
-        else:
-            return
 
         for k, v in kwargs.items():
-
             if k in ['positionreceived', 'etatime']:
                 setattr(self, k, setup_dt(v))
 
@@ -63,4 +60,4 @@ class Vessel(object):
         return (self.latitude, self.longitude)
 
     def __repr__(self):
-        return '<' + self.name + '>'
+        return self.name

@@ -72,11 +72,11 @@ class Fleetmonger(object):
         _check_params({'locode': locode, 'name': name})
         return port_wrapper(self._call('porturl', q=name, locode=locode, country_isocode=country, **params))
 
-    def weather_at_position(self, lat=None, lon=None, vessel=None, **params):
+    def weather(self, lat=None, lon=None, vessel=None, **params):
         _check_params({'(lat and lon)': lat and lon, 'vessel': vessel})
         if vessel:
             lat, lon = vessel.coords
         return self._call('weather_at_position', lat=lat, lon=lon, **params)
 
-    def container_schedule(self, imo, weeks_ahead=1, **params):
+    def containerschedule(self, imo, weeks_ahead=1, **params):
         return port_wrapper(self._call('container_schedule', imo=imo, weeks_ahead=weeks_ahead, **params))

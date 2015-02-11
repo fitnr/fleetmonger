@@ -4,11 +4,13 @@ Python wrapper for the [fleetmon.com](fleetmon.com) ship-tracking API.
 
 ## API Calls
 [Read the details of the API at Fleetmonger](https://www.fleetmon.com/faq/public_api).
+* fleetmonger.myfleet
 * fleetmonger.vessel
 * fleetmonger.vesselparticulars
 * fleetmonger.vesselurl
 * fleetmonger.porturl
-* fleetmonger.weather_at_position
+* fleetmonger.weather
+* fleetmonger.containerschedule
 
 # Usage
 
