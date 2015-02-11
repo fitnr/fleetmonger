@@ -12,6 +12,7 @@ class Fleetmonger(object):
     _endpoint = 'http://www.fleetmon.com/api/p'
 
     _status_code = None
+    _raw_result = None
 
     """API class for Fleetmon"""
 
@@ -35,15 +36,20 @@ class Fleetmonger(object):
         )
 
     def _call(self, resource, **params):
-        url = self._url(resource)
+        self._raw_result, self.status_code = None, None
 
+        params = {k:v for k, v in params.items() if v is not None}
         params['format'] = 'json'
         params['api_key'] = self.api_key
         params['username'] = self.username
 
-        r = requests.get(url, params=params)
+        r = requests.get(self._url(resource), params=params)
 
         self.status_code = r.status_code
+        self._raw_result = r.text
+
+        if self.status_code != 200:
+            return {}
 
         return r.json()
 
