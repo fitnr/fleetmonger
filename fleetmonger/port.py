@@ -32,7 +32,12 @@ class Port(object):
 
     @property
     def duration(self):
-        if self.eta and self.etd:
+        if hasattr(self, 'etd') and hasattr(self, 'eta'):
             return self.etd - self.eta
-        else:
+        elif hasattr(self, 'departure') and hasattr(self, 'arrival'):
             return self.departure - self.arrival
+
+        return None
+
+    def __repr__(self):
+        return '<' + self.name + '>'

@@ -2,32 +2,34 @@ from .utils import setup_dt
 from .port import port_wrapper, Port
 
 
-class vessel(object):
+class Vessel(object):
 
-    """docstring for vessel"""
+    """A single vessel"""
 
-    # 'name'
-    # 'destination'
-    # 'etatime'
-    # 'flag'
-    # 'heading'
-    # 'imonumber'
-    # 'latitude'
-    # 'location'
-    # 'longitude'
-    # 'mmsinumber'
-    # 'navigationstatus'
-    # 'photos'
-    # 'positionreceived'
-    # 'publicurl'
-    # 'type'
-    # 'last_ports'
-    # 'last_port'
+    name = None
+    destination = None
+    etatime = None
+    flag = None
+    heading = None
+    imonumber = None
+    latitude = None
+    location = None
+    longitude = None
+    mmsinumber = None
+    navigationstatus = None
+    photos = None
+    positionreceived = None
+    publicurl = None
+    type = None
+    last_ports = None
+    last_port = None
 
     def __init__(self, kwargs):
 
         if kwargs.get('vessel'):
             kwargs = kwargs['vessel']
+        else:
+            return
 
         for k, v in kwargs.items():
 
@@ -42,6 +44,7 @@ class vessel(object):
 
             else:
                 setattr(self, k, v)
+
 
     @property
     def coords(self):

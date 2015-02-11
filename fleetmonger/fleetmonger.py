@@ -1,7 +1,11 @@
 import requests
 from .vessel_wrapper import vessel_wrapper
 from .vessel import vessel
+from .port import port_wrapper
 
+def _check_params(named):
+    if not any(v for v in named.values()):
+        raise ValueError("Missing arguments, must provide one of {}".format(named.keys()))
 
 class Fleetmonger(object):
 
@@ -47,17 +51,27 @@ class Fleetmonger(object):
     def myfleet(self, **params):
         return vessel_wrapper(self._call('myfleet', **params))
 
-    def vessel(self, imonumber=None, q=None, **params):
-        return vessel(self._call('vessels_terrestrial', imonumber=imonumber, q=q, **params))
+    def vessel(self, imo=None, name=None, lastports=None, **params):
+        _check_params({'imo': imo, 'name': name})
+        return Vessel(self._call('vessels_terrestrial', imonumber=imo, q=name, lastports=lastports, **params))
 
-    def versselurl(self, imo, **params):
-        return self._call('versselurl', imo=imo, **params)
+    def vesselparticulars(self, imo=None, mmsi=None, name=None, **params):
+        _check_params({'imo': imo, 'mmsi': mmsi, 'name': name})
+        return Vessel(self._call('vesselparticulars', imonumber=imo, mmsinumber=mmsi, q=name, **params))
 
-    def porturl(self, q, **params):
-        return self._call('porturl', q=q, **params)
+    def vesselurl(self, imo=None, mmsi=None, name=None, **params):
+        _check_params({'imo': imo, 'mmsi': mmsi, 'name': name})
+        return vessel_wrapper(self._call('vesselurl', imonumber=imo, mmsinumber=mmsi, q=name, **params))
 
-    def weather_at_position(self, lat, lon, **params):
+    def porturl(self, name=None, locode=None, country=None, **params):
+        _check_params({'locode': locode, 'name': name})
+        return port_wrapper(self._call('porturl', q=name, locode=locode, country_isocode=country, **params))
+
+    def weather_at_position(self, lat=None, lon=None, vessel=None, **params):
+        _check_params({'(lat and lon)': lat and lon, 'vessel': vessel})
+        if vessel:
+            lat, lon = vessel.coords
         return self._call('weather_at_position', lat=lat, lon=lon, **params)
 
-    def container_schedule(self, imo, weeks_ahead=None, **params):
-        return self._call('container_schedule', imo=imo, weeks_ahead=weeks_ahead, **params)
+    def container_schedule(self, imo, weeks_ahead=1, **params):
+        return port_wrapper(self._call('container_schedule', imo=imo, weeks_ahead=weeks_ahead, **params))
