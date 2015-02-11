@@ -1,6 +1,18 @@
 from .utils import setup_dt
 from .port import port_wrapper, Port
 
+class vessel_wrapper(list):
+
+    """A list of vessels with a few extra properties"""
+
+    def __init__(self, kwargs):
+        super(vessel_wrapper, self).__init__()
+
+        self.meta = kwargs['meta']
+        vessels = kwargs['objects']
+
+        for v in vessels:
+            self.append(Vessel(v['vessel']))
 
 class Vessel(object):
 

@@ -1,6 +1,5 @@
 import requests
-from .vessel_wrapper import vessel_wrapper
-from .vessel import vessel
+from .vessel import Vessel, vessel_wrapper
 from .port import port_wrapper
 
 def _check_params(named):
