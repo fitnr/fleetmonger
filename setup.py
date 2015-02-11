@@ -2,12 +2,28 @@
 
 from setuptools import setup
 
+def read_md(f):
+    try:
+        try:
+            from pypandoc import convert
+            return convert(f, 'rst')
+
+        except ImportError:
+            print("pypandoc not found, could not convert Markdown to RST")
+            return open(f, 'r').read()
+
+    except (IOError, RuntimeError):
+        print("Could not read readme.md")
+        return ''
+
 setup(
     name='fleetmonger',
 
     version='0.0.2',
 
-    description='Fleetmon API wrapper',
+    description='Fleetmon API wrapper for ship data',
+
+    long_description=read_md('readme.md'),
 
     author='Neil Freeman',
 
@@ -22,5 +38,11 @@ setup(
     install_requires=[
         'requests==2.5.1',
         'pytz==2014.10'
+    ],
+
+    classifiers=[
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 2.7',
+        'Intended Audience :: Science/Research',
     ],
 )
