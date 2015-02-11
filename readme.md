@@ -93,14 +93,6 @@ port.duration
 ````
 ### Port urls and Vessel urls
 
-In general, the parameters that Fleetmonger expects match those of the Fleetmon API, with the following exceptions:
-
-```
-instead of mmsinumber, use mmsi
-...        imonumber   ... imo
-...        q           ... name
-```
-
 Pass mmsi, imo or name to vessel methods. Pass locode or name to port methods.
 
 ````python
@@ -121,3 +113,13 @@ fm.weather(lat=3.469557, lon=-167.255859)
 # You can also pass a vessel object to the weather call
 fm.weather(vessel=my_vessel)
 ````
+
+## Parameters
+
+In general, the parameters that Fleetmonger expects match those of the Fleetmon API, with the following exceptions:
+
+```
+instead of mmsinumber, use mmsi
+...        imonumber   ... imo
+...        q           ... name
+```
