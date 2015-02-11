@@ -73,26 +73,7 @@ myvessel.photos
 
 Minimum list of `Vessel` attributes:
 
-* `coords` (lat, lon)
-* `course`
-* `destination`
-* `draught`
-* `etatime`
-* `flag`
-* `heading`
-* `imonumber`
-* `last_port`
-* `latitude`
-* `location`
-* `longitude`
-* `mmsinumber`
-* `name`
-* `navigationstatus`
-* `photos`
-* `positionreceived`
-* `publicurl`
-* `speed`
-* `type`
+`coords` (lat, lon), `course`, `destination`, `draught`, `etatime`, `flag`, `heading`, `imo`, `last_port`, `latitude`, `location`, `longitude`, `mmsi`, `name`, `navigationstatus`, `photos`, `positionreceived`, `publicurl`, `speed`, `type`
 
 ### Ports
 
@@ -129,7 +110,7 @@ fm.porturl(locode='USLAX')
 
 # Porturl also takes an optional country isocode parameter 
 fm.porturl(name='new', country='US')
-[<Newark (New York)>, <Newburgh>, <Newburyport>, <Newport (OR)>]
+# [<Newark (New York)>, <Newburgh>, <Newburyport>, <Newport (OR)>]
 ````
 
 ### Weather at Location

@@ -26,11 +26,11 @@ class Vessel(object):
     flag = None
     flag_iso = None
     heading = None
-    imonumber = None
+    imo = None
     latitude = None
     location = None
     longitude = None
-    mmsinumber = None
+    mmsi = None
     navigationstatus = None
     photos = None
     positionreceived = None
@@ -50,6 +50,12 @@ class Vessel(object):
 
             if k in ['positionreceived', 'etatime']:
                 setattr(self, k, setup_dt(v))
+
+            elif k in ('mmsinumber', 'mmsi'):
+                self.mmsi = v
+
+            elif k in ('imonumber', 'imo'):
+                self.imo = v
 
             elif k == 'last_ports':
                 self.last_ports = port_wrapper(v)
