@@ -5,7 +5,7 @@ from setuptools import setup
 setup(
     name='fleetmonger',
 
-    version='0.0.1',
+    version='0.0.2',
 
     description='Fleetmon API wrapper',
 
@@ -17,8 +17,10 @@ setup(
 
     packages=['fleetmonger'],
 
+    license='MIT',
+
     install_requires=[
-        'requests',
-        'pytz'
+        'requests==2.5.1',
+        'pytz==2014.10'
     ],
 )
