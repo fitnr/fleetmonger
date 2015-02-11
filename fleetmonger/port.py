@@ -17,6 +17,10 @@ class port_wrapper(list):
 class Port(object):
 
     '''A port'''
+    country_isocode = None
+    country_name = None
+    name = None
+    locode = None
 
     def __init__(self, kwargs):
         if kwargs.get('arrival'):
@@ -27,8 +31,21 @@ class Port(object):
             self.eta = setup_date(kwargs['eta'])
             self.etd = setup_date(kwargs['etd'])
 
-        self.locode = kwargs.get('locode') or kwargs.get('port_locode')
-        self.name = kwargs.get('name') or kwargs.get('port_name') or kwargs.get('portname')
+        for k, v in kwargs.items():
+            if k in ('eta', 'etd', 'arrival', 'departure'):
+                pass
+
+            elif k in ('name', 'port_name', 'portname'):
+                setattr(self, 'name', v)
+
+            elif k in ('locode', 'port_locode'):
+                setattr(self, 'locode', v)
+
+            elif k == 'publicurl':
+                setattr(self, 'url', v)
+
+            else:
+                setattr(self, k, v)
 
     @property
     def duration(self):

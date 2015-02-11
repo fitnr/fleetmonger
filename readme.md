@@ -44,10 +44,10 @@ my_vessel = fm.vessel()
 # ValueError
 
 my_vessel.name
-# SS MINNOW
+# <SS MINNOW>
 
 my_vessel.navigationstatus
-# On a three hour tour
+# 'On a three hour tour'
 
 my_vessel.etatime
 # datetime.datetime(1964, 9, 26, 12, 0, tzinfo=<UTC>)
@@ -58,6 +58,16 @@ my_vessel.coords
 # Missing attributes return None
 my_vessel.location
 # None
+
+my_vessel.flag
+# 'United States'
+
+my_vessel.flag_so
+# 'US'
+
+# Some vessels have photos
+myvessel.photos
+# ["//img1.fleetmon.com/thumbnails/MINNOW_1.220x146.jpg", "//img1.fleetmon.com/thumbnails/MINNOW_2.570x1140.jpg"]
 
 ````
 
@@ -110,12 +120,16 @@ instead of mmsinumber, use mmsi
 ...        q           ... name
 ```
 
+Pass mmsi, imo or name to vessel methods. Pass locode or name to port methods.
+
 ````python
 fm.vesselurl(name='MINNOW')
 
 fm.porturl(locode='USLAX')
 
-fm.vesselurl(locode='USLAX')
+# Porturl also takes an optional country isocode parameter 
+fm.porturl(name='new', country='US')
+[<Newark (New York)>, <Newburgh>, <Newburyport>, <Newport (OR)>]
 ````
 
 ### Weather at Location

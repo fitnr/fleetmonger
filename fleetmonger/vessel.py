@@ -1,6 +1,7 @@
 from .utils import setup_dt
 from .port import port_wrapper, Port
 
+
 class vessel_wrapper(list):
 
     """A list of vessels with a few extra properties"""
@@ -14,6 +15,7 @@ class vessel_wrapper(list):
         for v in vessels:
             self.append(Vessel(v))
 
+
 class Vessel(object):
 
     """A single vessel"""
@@ -22,6 +24,7 @@ class Vessel(object):
     destination = None
     etatime = None
     flag = None
+    flag_iso = None
     heading = None
     imonumber = None
     latitude = None
@@ -31,7 +34,7 @@ class Vessel(object):
     navigationstatus = None
     photos = None
     positionreceived = None
-    publicurl = None
+    url = None
     type = None
     last_ports = None
     last_port = None
@@ -42,6 +45,9 @@ class Vessel(object):
             kwargs = kwargs['vessel']
 
         for k, v in kwargs.items():
+            if not v:
+                continue
+
             if k in ['positionreceived', 'etatime']:
                 setattr(self, k, setup_dt(v))
 
@@ -51,13 +57,22 @@ class Vessel(object):
             elif k == 'lastport':
                 self.last_port = Port(v)
 
+            elif k == 'public_url':
+                self.url = v
+
+            elif k == 'flag':
+                # e.g. "US|United States"
+                self.flag_iso, self.flag = v.split('|')
+
+            elif k == 'photos':
+                self.photos = v.split('|')
+
             else:
                 setattr(self, k, v)
-
 
     @property
     def coords(self):
         return (self.latitude, self.longitude)
 
     def __repr__(self):
-        return self.name
+        return '<' + self.name + '>'
