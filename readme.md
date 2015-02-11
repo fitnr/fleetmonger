@@ -12,6 +12,8 @@ Python wrapper for the [fleetmon.com](fleetmon.com) ship-tracking API.
 * fleetmonger.weather
 * fleetmonger.containerschedule
 
+Note that some API calls require the purchase of credits at Fleetmon. This package is unaffiliated with Fleetmon, use at your own risk.
+
 # Usage
 
 ````python
@@ -23,7 +25,6 @@ fleet = fm.myfleet()
 
 for ship in fleet:
     print ship.name, ship.destination
-
 ````
 
 ### Vessels
@@ -31,6 +32,16 @@ for ship in fleet:
 ````python
 
 my_vessel = fleet[0]
+# or
+my_vessel = fm.vessel(mmsi='239725000')
+# or
+my_vessel = fm.vessel(imo='9197545')
+# or
+my_vessel = fm.vessel(name='MINNOW')
+
+# Passing incomplete information will raise an error
+my_vessel = fm.vessel()
+# ValueError
 
 my_vessel.name
 # SS MINNOW
@@ -88,4 +99,30 @@ port.name
 port.duration
 # datetime.timedelta(...)
 
+````
+### Port urls and Vessel urls
+
+In general, the parameters that Fleetmonger expects match those of the Fleetmon API, with the following exceptions:
+
+```
+instead of mmsinumber, use mmsi
+...        imonumber   ... imo
+...        q           ... name
+```
+
+````python
+fm.vesselurl(name='MINNOW')
+
+fm.porturl(locode='USLAX')
+
+fm.vesselurl(locode='USLAX')
+````
+
+### Weather at Location
+
+````python
+fm.weather(lat=3.469557, lon=-167.255859)
+
+# You can also pass a vessel object to the weather call
+fm.weather(vessel=my_vessel)
 ````
