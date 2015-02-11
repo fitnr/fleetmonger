@@ -7,5 +7,6 @@ def setup_dt(string):
     dt = datetime.strptime(string[:-6], '%Y-%m-%d %H:%M:%S')
     return pytz.utc.localize(dt)
 
+
 def setup_date(string):
     return datetime.strptime(string, '%Y-%m-%d').date()

@@ -1,7 +1,8 @@
 from .utils import setup_dt
 
+
 class weather(object):
-    
+
     def __init__(self, kwargs):
         self.arg = kwargs['arg']
 
