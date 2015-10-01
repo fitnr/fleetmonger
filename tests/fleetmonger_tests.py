@@ -1,11 +1,10 @@
-import sys
 from fleetmonger import Fleetmonger
 import unittest
 
 class FleetMongerTestCase(unittest.TestCase):
 
     def setUp(self):
-
+        user, key = '', ''
         self.f = Fleetmonger(user, key)
 
     def test_fleet(self):

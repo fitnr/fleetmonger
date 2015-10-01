@@ -19,7 +19,7 @@ def read_md(f):
 setup(
     name='fleetmonger',
 
-    version='0.0.2',
+    version='0.0.3',
 
     description='Fleetmon API wrapper for ship data',
 
@@ -36,9 +36,11 @@ setup(
     license='MIT',
 
     install_requires=[
-        'requests==2.5.1',
+        'requests >=2.4.1, <3',
         'pytz==2014.10'
     ],
+
+    test_suite='tests',
 
     classifiers=[
         'License :: OSI Approved :: MIT License',
