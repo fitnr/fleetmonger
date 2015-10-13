@@ -21,7 +21,5 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-__all__ = ['fleetmonger', 'vessel_wrapper', 'vessel', 'port', 'utils']
-__version__ = '0.0.4'
-
-from .fleetmonger import Fleetmonger
+README.rst: README.md
+	pandoc $< -o $@ || touch $@
